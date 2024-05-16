@@ -31,6 +31,8 @@ def getProducts():
     else:
         return db
 
+#post products
+
 @app.post("/products", response_model=Product)
 def postProducts(product: Product):
     product.id = str(uuid4())
@@ -47,6 +49,8 @@ def updateProducts(post_id: str,product: Product):
             pod["routes"] = product.routes
             return product
     raise HTTPException(status_code=404, detail="Product not found")
+
+#delete products
 
 @app.delete("/products/{id}")
 def deleteProducts(id: str):
