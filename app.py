@@ -9,6 +9,7 @@ db = []
 
 from uuid import uuid4
 
+# Creacion de la clase Products
 class Product(BaseModel):
     id: Optional[str] = None
     nameProduct: str
@@ -35,6 +36,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+# Get all products
 @app.get("/products")
 def getProducts():
     if len(db) == 0:
@@ -42,12 +44,14 @@ def getProducts():
     else:
         return db
 
+# Create product
 @app.post("/products", response_model=Product)
 def postProducts(product: Product):
     product.id = str(uuid4())
     db.append(product.dict())
     return product
 
+# Update product
 @app.put("/products/{post_id}", response_model=Product)
 def updateProducts(post_id: str,product: Product):
     for pod in db:
@@ -59,6 +63,7 @@ def updateProducts(post_id: str,product: Product):
             return product
     raise HTTPException(status_code=404, detail="Product not found")
 
+# Delete product
 @app.delete("/products/{id}")
 def deleteProducts(id: str):
     for pod in db:
@@ -67,6 +72,7 @@ def deleteProducts(id: str):
             return {"detail": "Product deleted successfully"}
     raise HTTPException(status_code=404, detail="Product not found")
 
+# Get product by ID
 @app.get("/products/{product_id}")
 def getProduct(product_id: str):
     for prod in db:
