@@ -13,9 +13,9 @@ Backend
 
 Frontend
 
-1.Inside the Fazt-API folder you have to create a folder called folder
+1. Inside the Fazt-API folder you have to create a folder called folder
 
-2.npm create vite@latest -- --template react
+2. npm create vite@latest -- --template react
 
 3. npm install
 
