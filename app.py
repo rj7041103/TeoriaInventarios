@@ -1,7 +1,9 @@
 from fastapi import FastAPI, HTTPException
+from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
-from typing import Optional,Text
+from typing import Optional
 from uuid import uuid4
+
 app = FastAPI()
 db = []
 
@@ -20,8 +22,20 @@ class Product(BaseModel):
             self.id = str(uuid4())
         return data
 
+# Configurar CORS
+origins = [
+    "http://localhost:5173",
+]
 
-@app.get("/")
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+@app.get("/products")
 def getProducts():
     if len(db) == 0:
         return {"message": "DB is empty"}
