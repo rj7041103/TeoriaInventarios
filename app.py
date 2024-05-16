@@ -7,6 +7,8 @@ db = []
 
 from uuid import uuid4
 
+#creacion de clase products
+
 class Product(BaseModel):
     id: Optional[str] = None
     nameProduct: str
@@ -20,6 +22,7 @@ class Product(BaseModel):
             self.id = str(uuid4())
         return data
 
+#api getproducts 
 
 @app.get("/")
 def getProducts():
